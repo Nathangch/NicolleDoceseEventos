@@ -1,28 +1,49 @@
 document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelectorAll('nav a');
-    const tabContents = document.querySelectorAll('.tab-content');
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const navUl = document.querySelector('nav ul');
 
-    // Tab switching logic
+    // Smooth scroll logic
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
+            const targetId = link.getAttribute('href');
+            
+            // Allow default behavior if it's not a section link
+            if (!targetId.startsWith('#')) return;
+            
             e.preventDefault();
+            const targetSection = document.querySelector(targetId);
             
-            // Remove active classes
-            navLinks.forEach(l => l.classList.remove('active'));
-            tabContents.forEach(content => content.classList.remove('active-tab'));
-            
-            // Add active class to clicked link
-            e.target.classList.add('active');
-            
-            // Show corresponding tab content
-            const targetId = e.target.getAttribute('data-target');
-            document.getElementById(targetId).classList.add('active-tab');
+            if (targetSection) {
+                window.scrollTo({
+                    top: targetSection.offsetTop - 80, // Offset for sticky header
+                    behavior: 'smooth'
+                });
+            }
             
             // Close mobile menu if open
             if(navUl.classList.contains('show')) {
                 navUl.classList.remove('show');
+            }
+        });
+    });
+
+    // Auto-update active link based on scroll position
+    window.addEventListener('scroll', () => {
+        let current = '';
+        const sections = document.querySelectorAll('.tab-content');
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            if (window.scrollY >= sectionTop - 150) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${current}`) {
+                link.classList.add('active');
             }
         });
     });

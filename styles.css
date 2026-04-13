@@ -117,17 +117,12 @@ main {
 }
 
 .tab-content {
-    display: none;
-    animation: fadeIn 0.5s ease-out forwards;
+    margin-bottom: 5rem;
+    padding-top: 5rem; /* Offset for sticky header */
 }
 
-.tab-content.active-tab {
-    display: block;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+.tab-content:last-of-type {
+    margin-bottom: 0;
 }
 
 .section-header {
@@ -460,8 +455,14 @@ footer {
         font-size: 2.5rem;
     }
     
+    .hero {
+        padding: 2rem;
+    }
+    
     .savory-container, .contact-container {
         flex-direction: column;
         grid-template-columns: 1fr;
+        padding: 1.5rem;
+        gap: 1.5rem;
     }
 }

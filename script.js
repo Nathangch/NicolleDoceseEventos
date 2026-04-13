@@ -48,6 +48,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Gallery item click toggle logic for mobile viewing
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    galleryItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            // Remove 'clicked' class from all other items to only show one at a time (optional nice feature)
+            galleryItems.forEach(otherItem => {
+                if(otherItem !== item) otherItem.classList.remove('clicked');
+            });
+            item.classList.toggle('clicked');
+        });
+    });
+
     // Mobile menu toggle
     mobileMenuBtn.addEventListener('click', () => {
         navUl.classList.toggle('show');

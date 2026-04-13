@@ -273,6 +273,7 @@ main {
 
 .savory-image {
     flex: 1;
+    width: 50%;
     height: auto;
     object-fit: cover;
     border-radius: 20px;
